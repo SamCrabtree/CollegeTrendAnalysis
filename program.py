@@ -11,7 +11,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # IMPORT DATA FROM COLLEGE SCORECARD ONLINE
 api_url = "https://api.data.gov/ed/collegescorecard/v1/"
-api_key = "koxkdkDg66PafOCY6XvYhzuisUlhn2IuwW6Zdbfd"
+api_key = ""
 dataset = "schools.json?"
 fields = [
     #SCHOOL INFORMATION
@@ -91,7 +91,7 @@ df1 = pd.DataFrame(schools)
 # colleges_df = pd.read_csv('https://www.tuitiontracker.org/data/download/institutions.csv', usecols = ['UnitID', 'Institution Name'])
 df2 = pd.read_csv('https://www.tuitiontracker.org/data/download/cost-attendance.csv', usecols = ['Institution Name',
                                                                                                  'Published in-state tuition and fees 2017-18 (IC2017_AY)',
-                                                                                                 
+
 
 
                                                                                                  ])
@@ -118,8 +118,8 @@ df3 = pd.read_csv('http://www.tuitiontracker.org/data/download/grad-rates.csv',
 #This Merges the above Dataframes by the institution name (which is listed as school.name on Gov College Score Card
 #and "Institution Name" at Tuition Tracker
 
-
-df4 = pd.merge(df1, df2, left_on='school.name', right_on='Institution Name').drop('Institution Name', axis=1)
+df4 = pd.merge(df2, df3, on='Institution Name')
+df5 = pd.merge(df1, df3, left_on='school.name', right_on='Institution Name').drop('Institution Name', axis=1)
 
 
 # retention_rate_df = pd.read_csv('https://www.tuitiontracker.org/data/download/retention-rates.csv', usecols = ['UnitID','Institution Name'])
