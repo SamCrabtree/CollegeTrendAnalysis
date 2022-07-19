@@ -14,7 +14,29 @@ the new data set.
 4. Utilize a virtual environment and include instructions in your README on how the user should set one up
 5. Annotate your .py files with well-written comments and a clear README.md (only applicable if you’re not 
 using a jupyter notebook).
+NOTE: This SHOULD be met by the file you are reading right now! 
 
+
+Setup 
+
+This program requires two major steps for setup. First, is the setup of a virtual environment. Second, you will 
+need to get an API Key from CollegeScorecard.com. 
+
+
+Virtual Environment 
+
+There are two ways you can go about creating a virtual environment. 
+
+1. Poetry
+Poetry uses primarily TOML files to help create a virtual environment and install all necessary
+
+2. VENV
+The most common way to create a virtual environment. 
+
+
+API Key
+
+In order to use this program, you will need to get an API key from the 
 
 
 
