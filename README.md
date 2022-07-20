@@ -21,7 +21,6 @@ two sources (CSVs) come from TuitionTracker.org that still pending.
 This project merges the dataset created from the CollegeScorecard API, and from TuitionTracker.com's CSV Files.
 
 4. **Make 3 matplotlib or seaborn (or another plotting library) visualizations to display your data.**
-
 We have three Seaborn Plots that print off as a result of this program. The first visualization show the comparison of
 annual tuition cost to the institutions' graduation rate. The second visualization covers each states college graduation 
 rate. The Third shows tuition cost by Religious Organization. 
