@@ -76,6 +76,8 @@ In order to use this program, you will need to get an API key from CollegeScorec
 Go to https://collegescorecard.ed.gov/data/documentation/ and scroll to the bottom of the page. There you will
 need to complete a security question. Then you should be able to apply for API approval rather quickly. 
 
+Once you have completed this process, you will need to add the API key to the variable API KEY in program.py
+
 ## Running The Program
 
 1. Once you have activate your virtual environment above
