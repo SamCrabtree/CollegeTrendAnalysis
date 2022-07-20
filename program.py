@@ -376,9 +376,8 @@ for ax in st_grad_rates.axes.flat:
         label.set_rotation(90)
 
 
-#
-
-tuition_by_org_rates = sns.relplot(x=str("Religious Affiliation"), y=f"In State Tuition {year} Academic Year", hue="Ownership", data=df5);
+tuition_by_org_rates = sns.relplot(x=str("Religious Affiliation"), y=f"In State Tuition {year} Academic Year",
+                                   data=df5);
 plt.title("Tuition by Religious Affiliation")
 for ax in tuition_by_org_rates.axes.flat:
     for label in ax.get_xticklabels():
