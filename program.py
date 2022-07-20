@@ -16,10 +16,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # IMPORT DATA FROM COLLEGE SCORECARD ONLINE
 api_url = "https://api.data.gov/ed/collegescorecard/v1/schools.json?"
-api_key = "ENTER API KEY HERE"
+api_key = "INSERT API KEY HERE"
 
 current_year = date.today().year
-
 
 def year_select():
     value = input("What year data do you wish to look up? ")
@@ -41,94 +40,12 @@ year = year_select()
 
 
 school_fields = [
-
-    # SCHOOL INFORMATION
     "school.name",
     "school.city",
     "school.state",
     "school.degrees_awarded.predominant_recoded",
-
-    # Data Definitions 0 - Not classified, 1 - Predominantly certificate-degree granting (varies),
-    # 2 - Predominantly associate's-degree granting (2), 3 - Predominantly bachelor's-degree granting (4)
-    # 4 - Entirely graduate-degree granting (5+)
-
     "school.ownership",
-
-    # Data Definitions #  1 - Public, 2 - Private Non-Profit, 3 - Private For Profit
-
     "school.religious_affiliation",
-
-    # RELIGION VALUE DICTIONARY
-    # -1	Not reported
-    # -2	Not applicable
-    # 22	American Evangelical Lutheran Church
-    # 24	African Methodist Episcopal Zion Church
-    # 27	Assemblies of God Church
-    # 28	Brethren Church
-    # 30	Roman Catholic
-    # 33	Wisconsin Evangelical Lutheran Synod
-    # 34	Christ and Missionary Alliance Church
-    # 35	Christian Reformed Church
-    # 36	Evangelical Congregational Church
-    # 37	Evangelical Covenant Church of America
-    # 38	Evangelical Free Church of America
-    # 39	Evangelical Lutheran Church
-    # 40	International United Pentecostal Church
-    # 41	Free Will Baptist Church
-    # 42	Interdenominational
-    # 43	Mennonite Brethren Church
-    # 44	Moravian Church
-    # 45	North American Baptist
-    # 47	Pentecostal Holiness Church
-    # 48	Christian Churches and Churches of Christ
-    # 49	Reformed Church in America
-    # 50	Episcopal Church, Reformed
-    # 51	African Methodist Episcopal
-    # 52	American Baptist
-    # 53	American Lutheran
-    # 54	Baptist
-    # 55	Christian Methodist Episcopal
-    # 57	Church of God
-    # 58	Church of Brethren
-    # 59	Church of the Nazarene
-    # 60	Cumberland Presbyterian
-    # 61	Christian Church (Disciples of Christ)
-    # 64	Free Methodist
-    # 65	Friends
-    # 66	Presbyterian Church (USA)
-    # 67	Lutheran Church in America
-    # 68	Lutheran Church - Missouri Synod
-    # 69	Mennonite Church
-    # 71	United Methodist
-    # 73	Protestant Episcopal
-    # 74	Churches of Christ
-    # 75	Southern Baptist
-    # 76	United Church of Christ
-    # 77	Protestant, not specified
-    # 78	Multiple Protestant Denomination
-    # 79	Other Protestant
-    # 80	Jewish
-    # 81	Reformed Presbyterian Church
-    # 84	United Brethren Church
-    # 87	Missionary Church Inc
-    # 88	Undenominational
-    # 89	Wesleyan
-    # 91	Greek Orthodox
-    # 92	Russian Orthodox
-    # 93	Unitarian Universalist
-    # 94	Latter Day Saints (Mormon Church)
-    # 95	Seventh Day Adventists
-    # 97	The Presbyterian Church in America
-    # 99	Other (none of the above)
-    # 100	Original Free Will Baptist
-    # 101	Ecumenical Christian
-    # 102	Evangelical Christian
-    # 103	Presbyterian
-    # 105	General Baptist
-    # 106	Muslim
-    # 107	Plymouth Brethren
-
-    # 2020 SCHOOL YEAR DATA
     f"{year}.admissions.test_requirements",
     f"{year}.admissions.sat_scores.average.overall",
     f"{year}.admissions.admission_rate.overall",
@@ -139,8 +56,8 @@ school_fields = [
     f"{year}.completion.completion_rate_less_than_4yr_150nt",
 ]
 
-# Builds out the API Query URL
 
+# Builds out the API Query URL
 
 def api_query():
     response_api = requests.get(api_url + \
@@ -203,9 +120,18 @@ df1.columns = ["Institution Name", "City", "State", "Primary Degree Offered", "O
                f"{year} Less Than 4 Year Graduation Rate",
                ]
 
+# REPLACE PRIMARY DEGREE NUMBER RESULTS WITH PROPER DEFINITIONS.
+df1['Primary Degree Offered'] = df1['Primary Degree Offered'].replace([0, 1, 2, 3, 4, ], ['Not classified',
+                                                                                          'Certificate',
+                                                                                          'Associate',
+                                                                                          'Bachelor\'s',
+                                                                                          'Graduate', ])
+
+# REPLACE OWNERSHIP KIND NUMBER RESULTS WITH PROPER DEFINITIONS.
 df1['Ownership'] = df1['Ownership'].replace([1, 2, 3, ], ['Public', 'Private Not For Profit',
                                                                'Private For Profit'])
 
+# DEFINE NULL VALUES FOR RELIGIOUS AFFILIATION AND REPLACES NUMBER VALUES WITH PROPER DEFINITIONS
 df1['Religious Affiliation'] = df1['Religious Affiliation'].fillna(-1)
 df1['Religious Affiliation'] = df1['Religious Affiliation'].replace([-1, -2, 22, 24, 27, 28, 30, 33, 34,
                                                                      35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
@@ -286,19 +212,38 @@ df1['Religious Affiliation'] = df1['Religious Affiliation'].replace([-1, -2, 22,
                                                                      "Unknown",
                                                                      ])
 
-df1['Religious Affiliation'] = df1['Religious Affiliation'].apply(str)
 
 # Import Data From Multiple CSV Files Found at http://www.tuitiontracker.org/ NOTE: STILL WAITING FOR API ACCESS
 # FOR THIS DATA SOURCE THIS CSV FILE CAN BE FOUND ON TUITION TRACKER.COM
 print("Importing TuitionTracker.org Cost Data (CSV)")
 df2 = pd.read_csv('https://www.tuitiontracker.org/data/download/cost-attendance.csv',
                   usecols=['Institution Name',
+                           'Published in-state tuition and fees 2009-10 (IC2009_AY)',
+                           'Published in-state tuition and fees 2010-11 (IC2010_AY)',
+                           'Published in-state tuition and fees 2011-12 (IC2011_AY)',
+                           'Published in-state tuition and fees 2012-13 (IC2012_AY)',
+                           'Published in-state tuition and fees 2013-14 (IC2013_AY)',
+                           'Published in-state tuition and fees 2014-15 (IC2014_AY)',
+                           'Published in-state tuition and fees 2015-16 (IC2015_AY)',
+                           'Published in-state tuition and fees 2016-17 (IC2016_AY)',
                            'Published in-state tuition and fees 2017-18 (IC2017_AY)',
+
+
 
                              ])
 
 # Renames all of the Dataframes values above
-df2.columns = ['Institution Name', 'In State Tuition 17-18', ]
+df2.columns = ['Institution Name',
+               'In State Tuition 2009',
+               'In State Tuition 2010',
+               'In State Tuition 2011',
+               'In State Tuition 2012',
+               'In State Tuition 2013',
+               'In State Tuition 2014',
+               'In State Tuition 2015',
+               'In State Tuition 2016',
+               'In State Tuition 2017',
+               ]
 
 # Imports Data Regarding Graduation Rates
 print("Importing TuitionTracker.org Graduation Data (CSV)")
@@ -341,9 +286,43 @@ df5 = pd.merge(df1, df4, on='Institution Name')
 
 print("Calculating...")
 
-# Calculates the rate of increase/decrease of tuition costs  from the 17-18 School year to the 2020 Academic Year.
-df5["Tuition Percentage Change"] = (df5[f"In State Tuition {year} Academic Year"] - df5["In State Tuition 17-18"])\
-                          / df5[f"In State Tuition {year} Academic Year"] * 100
+# Calculates the rate of increase/decrease of tuition costs  from the selected year to other ones on file.
+df5[f"Tuition Percentage Change {year} - 2009"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2009"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2009"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2010"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2010"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2010"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2011"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2011"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2011"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2012"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2012"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2012"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2013"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2013"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2013"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2014"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2014"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2014"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2015"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2015"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2015"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2016"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2016"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2016"]) / 2) * 100
+df5[f"Tuition Percentage Change {year} - 2017"] = (df5[f"In State Tuition {year} Academic Year"]
+                                                   - df5["In State Tuition 2017"]) /\
+                                                  ((df5[f"In State Tuition {year} Academic Year"]
+                                                    + df5["In State Tuition 2017"]) / 2) * 100
 
 # Calculates the difference in 4 year graduation rate between 2020 and another year and creates a new column
 df5[f"4 Year Grad % Change from 2016-{year}"] = df5[f"{year} 4 Year Graduation Rate"] - df5["2016 4 YR Grad Rate"]
@@ -367,11 +346,11 @@ df5[f"2 Year Grad % Change from 2011-{year}"] = df5[f"{year} Less Than 4 Year Gr
 sns.set_style('darkgrid')
 
 grad_vs_tuition = sns.scatterplot(x=f"{year} 4 Year Graduation Rate", y=f"In State Tuition {year} Academic Year",
-                                  hue="Ownership", data=df5);
+                                  hue="Ownership", data=df5)
 
 plt.title("Tuition Cost vs. Graduation Rate")
 
-st_grad_rates = sns.relplot(x="State", y=f"{year} 4 Year Graduation Rate", hue="Ownership", data=df5);
+st_grad_rates = sns.relplot(x="State", y=f"{year} 4 Year Graduation Rate", hue="Ownership", data=df5)
 plt.title("Graduation Rates by State")
 for ax in st_grad_rates.axes.flat:
     for label in ax.get_xticklabels():
@@ -379,7 +358,7 @@ for ax in st_grad_rates.axes.flat:
 
 
 tuition_by_org_rates = sns.relplot(x=str("Religious Affiliation"), y=f"In State Tuition {year} Academic Year",
-                                   data=df5);
+                                   data=df5)
 plt.title("Tuition by Religious Affiliation")
 for ax in tuition_by_org_rates.axes.flat:
     for label in ax.get_xticklabels():
