@@ -14,22 +14,27 @@ This project was made as part of a requirement for CodeLouisville's Data Analysi
 following project requirements: 
 
 1. **Read TWO data sets in with an API (or use two different APIs that have data you can combine to answer new questions).**
+
 As previously discussed with Mentors, one source is an API online using the CollegeScorecard API and the other
 two sources (CSVs) come from TuitionTracker.org that still pending. 
 
 2. **Clean your data and perform a pandas merge with your two data sets, then calculate some new values based on the new data set.**
+
 This project merges the dataset created from the CollegeScorecard API, and from TuitionTracker.com's CSV Files.
 
 4. **Make 3 matplotlib or seaborn (or another plotting library) visualizations to display your data.**
+
 We have three Seaborn Plots that print off as a result of this program. The first visualization show the comparison of
 annual tuition cost to the institutions' graduation rate. The second visualization covers each states college graduation 
 rate. The Third shows tuition cost by Religious Organization. 
 
 5. **Utilize a virtual environment and include instructions in your README on how the user should set one up.**
+
 Specifically this program was set up using Poetry, but a traditional VENV is able to be used with the included 
 requirements.txt file. 
 
 6. **Annotate your .py files with well-written comments and a clear README.md (only applicable if you’re not using a jupyter notebook).**
+
 NOTE: This SHOULD be met by the file you are reading right now! 
 
 
