@@ -16,7 +16,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # IMPORT DATA FROM COLLEGE SCORECARD ONLINE
 api_url = "https://api.data.gov/ed/collegescorecard/v1/schools.json?"
-api_key = "INSERT API KEY HERE"
+api_key = ""
 
 current_year = date.today().year
 
