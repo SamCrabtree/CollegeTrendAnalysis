@@ -292,7 +292,9 @@ df1['Religious Affiliation'] = df1['Religious Affiliation'].apply(str)
 # FOR THIS DATA SOURCE THIS CSV FILE CAN BE FOUND ON TUITION TRACKER.COM
 print("Importing TuitionTracker.org Cost Data (CSV)")
 df2 = pd.read_csv('https://www.tuitiontracker.org/data/download/cost-attendance.csv',
-                  usecols=['Institution Name', 'Published in-state tuition and fees 2017-18 (IC2017_AY)',
+                  usecols=['Institution Name',
+                           'Published in-state tuition and fees 2017-18 (IC2017_AY)',
+
                              ])
 
 # Renames all of the Dataframes values above
