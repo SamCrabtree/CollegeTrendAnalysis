@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib.ticker import PercentFormatter
 import requests
 import json
 import os
@@ -379,7 +380,7 @@ def render_visualizations(value, dataframe):
     plt.show()
 
 
-    sns.boxplot(x="State", y=f"{year} 4 Year Graduation Rate", data=dataframe)
+    sns.boxplot(y="State", x=f"{year} 4 Year Graduation Rate", data=dataframe)
     plt.title("Graduation Rates by State")
     plt.show()
 
@@ -388,7 +389,7 @@ def render_visualizations(value, dataframe):
     plt.title("Tuition by Religious Affiliation")
     for ax in tuition_by_org_rates.axes.flat:
         for label in ax.get_xticklabels():
-            label.set_rotation(45)
+            label.set_rotation(90)
 
     # SHOWS ALL PLOTS ABOVE
     plt.show()
