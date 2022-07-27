@@ -5,7 +5,7 @@ description = ""
 authors = ["Sam Crabtree"]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = "^3.8"
 requests = "^2.28.0"
 python-dotenv = "^0.20.0"
 matplot = "^0.1.9"

@@ -70,13 +70,15 @@ There are two ways you can go about creating a virtual environment.
 `pip install -r requirements.txt`
 
 
-### API Key
+### API Key and addition
 
 In order to use this program, you will need to get an API key from CollegeScorecard.com. This is rather simple.
 Go to https://collegescorecard.ed.gov/data/documentation/ and scroll to the bottom of the page. There you will
 need to complete a security question. Then you should be able to apply for API approval rather quickly. 
 
-Once you have completed this process, you will need to add the API key to the variable API KEY in program.py
+Once you have completed this process, and are issued an API key, you will need to add the API key to the a .env file. 
+In the repo, you will find a file called **.env.example** paste the api key with no spaces or quotations to the right of
+the "=" sign and rename the file to .env.
 
 ## Running The Program
 
