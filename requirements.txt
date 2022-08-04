@@ -139,7 +139,7 @@ requests-toolbelt==0.9.1; python_version >= "3.7"
 requests==2.28.1; python_version >= "3.7" and python_version < "4"
 rfc3986==2.0.0; python_version >= "3.7"
 rich==12.5.1; python_full_version >= "3.6.3" and python_full_version < "4.0.0" and python_version >= "3.7"
-scipy==1.8.1; python_version >= "3.8" and python_version < "3.11"
+scipy==1.9.0; python_version >= "3.8" and python_version < "3.12"
 seaborn==0.11.2; python_version >= "3.6"
 secretstorage==3.3.2; sys_platform == "linux" and python_version >= "3.7"
 setuptools-scm==7.0.5; python_version >= "3.7"
@@ -153,7 +153,7 @@ tomli==2.0.1; python_version >= "3.7" \
 twine==4.0.1; python_version >= "3.7"
 typing-extensions==4.3.0; python_full_version >= "3.6.3" and python_full_version < "4.0.0" and python_version >= "3.7" and python_version < "3.9"
 typing==3.7.4.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-urllib3==1.26.10; python_version >= "3.7" and python_full_version < "3.0.0" and python_version < "4" or python_full_version >= "3.6.0" and python_version < "4" and python_version >= "3.7"
+urllib3==1.26.11; python_version >= "3.7" and python_full_version < "3.0.0" and python_version < "4" or python_full_version >= "3.6.0" and python_version < "4" and python_version >= "3.7"
 ushlex==0.99.1
 webencodings==0.5.1; python_version >= "3.7" \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
